@@ -10,6 +10,9 @@ export const {
   css,
 } = createStitches({
   theme: {
+    sizes: {
+      headerHeight: 'calc(3rem + 1.5rem)',
+    },
     colors: {
       white: '#fff',
 
@@ -22,6 +25,8 @@ export const {
       red400: '#E94957',
       red500: '#E63946',
       red600: '#E42535',
+
+      blue700: '#01258A',
 
       green300: '#00B881',
 

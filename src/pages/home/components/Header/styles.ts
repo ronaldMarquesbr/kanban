@@ -2,7 +2,7 @@ import { styled } from '@/styles'
 
 export const HeaderContainer = styled('header', {
   width: '100%',
-  height: 'calc(3rem + 1.5rem)',
+  height: '$headerHeight',
   padding: '0 3rem',
   boxShadow: '0 .25rem 12px 4px rgba(0,0,0,.1)',
   display: 'flex',

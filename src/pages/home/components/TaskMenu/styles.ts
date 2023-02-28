@@ -21,7 +21,6 @@ export const MenuContainer = styled(DropdownMenu.Content, {
 export const ItemsGroup = styled(DropdownMenu.Group, {
   display: 'flex',
   flexDirection: 'column',
-  gap: '.5rem',
 })
 
 export const MenuItem = styled(DropdownMenu.Item, {

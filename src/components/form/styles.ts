@@ -20,6 +20,7 @@ export const FormButton = styled('button', {
 })
 
 export const FormContainer = styled('div', {
+  willChange: 'transform, opacity',
   strong: {
     fontSize: '$2xl',
     color: '$gray800',
@@ -65,7 +66,7 @@ export const FormInputContainer = styled('div', {
 })
 
 export const SeparatorLine = styled('div', {
-  margin: '2.5rem 0',
+  margin: '2.5rem 0 3.5rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

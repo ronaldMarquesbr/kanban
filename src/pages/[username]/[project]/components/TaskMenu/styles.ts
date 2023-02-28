@@ -1,4 +1,4 @@
-import { styled } from '@/styles'
+import { keyframes, styled } from '@/styles'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 export const MenuTrigger = styled(DropdownMenu.Trigger, {
@@ -11,11 +11,23 @@ export const MenuTrigger = styled(DropdownMenu.Trigger, {
   cursor: 'pointer',
 })
 
+const slideUpAndFade = keyframes({
+  from: {
+    opacity: 0,
+    transform: 'translateY(2px)',
+  },
+  to: {
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
+})
+
 export const MenuContainer = styled(DropdownMenu.Content, {
   background: '$white',
   boxShadow: '0 2px 8px 3px rgba(0,0,0,0.15)',
   borderRadius: 8,
   padding: '.5rem .5rem',
+  animation: `${slideUpAndFade} 400ms cubic-bezier(0.16, 1, 0.3, 1)`,
 })
 
 export const ItemsGroup = styled(DropdownMenu.Group, {

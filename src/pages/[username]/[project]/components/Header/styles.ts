@@ -28,20 +28,3 @@ export const TaskQueryInputContainer = styled('div', {
   fontSize: '$xs',
   lineHeight: '1.375rem',
 })
-
-export const NewTaskButton = styled('button', {
-  all: 'unset',
-  height: '2.8rem',
-  fontWeight: 'bold',
-  backgroundColor: '$green300',
-  padding: '0 1.5rem',
-  borderRadius: 14,
-  boxShadow: '0 3px 12px 1px rgba(0,0,0,.28)',
-  cursor: 'pointer',
-  transition: 'background ease-out .3s, color ease-out .3s',
-
-  '&:hover': {
-    background: 'transparent',
-    color: '$green300',
-  },
-})

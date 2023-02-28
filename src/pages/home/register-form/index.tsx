@@ -1,4 +1,7 @@
-import { FormContainer, FormInputContainer } from '@/components/form/styles'
+import {
+  FormContainer,
+  FormInputContainer,
+} from '@/components/entry-form/styles'
 import { CaretCircleLeft } from 'phosphor-react'
 import {
   ButtonGrid,

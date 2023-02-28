@@ -2,7 +2,7 @@ import {
   FormContainer,
   FormInputContainer,
   SeparatorLine,
-} from '@/components/form/styles'
+} from '@/components/entry-form/styles'
 import { Envelope, GoogleLogo } from 'phosphor-react'
 import {
   FadeInRight,

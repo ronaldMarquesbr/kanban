@@ -1,7 +1,7 @@
 import { MagnifyingGlass } from 'phosphor-react'
+import { NewTaskModal } from '../NewTaskModal'
 import {
   HeaderContainer,
-  NewTaskButton,
   TaskQueryInput,
   TaskQueryInputContainer,
 } from './styles'
@@ -13,7 +13,7 @@ export function Header() {
         <TaskQueryInput placeholder="Search Here..." />
         <MagnifyingGlass style={{ opacity: '0.7' }} size={20} />
       </TaskQueryInputContainer>
-      <NewTaskButton>Nova tarefa</NewTaskButton>
+      <NewTaskModal />
     </HeaderContainer>
   )
 }

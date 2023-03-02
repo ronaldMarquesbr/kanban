@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Plus, X } from 'phosphor-react'
-import React, { FocusEvent, MouseEvent, useEffect, useState } from 'react'
+import React, { FocusEvent, MouseEvent, useState } from 'react'
 import {
   DeleteSubTaskButton,
   InputContainer,
@@ -45,10 +45,6 @@ export function NewTaskModal() {
       { id: subtaskId, description: subtaskUpdatedDescription },
     ])
   }
-
-  useEffect(() => {
-    console.log(subtasks)
-  }, [subtasks])
 
   return (
     <Dialog.Root>

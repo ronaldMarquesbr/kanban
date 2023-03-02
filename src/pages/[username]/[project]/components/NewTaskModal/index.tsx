@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Plus, X } from 'phosphor-react'
-import { FocusEvent, useEffect, useState } from 'react'
+import React, { FocusEvent, MouseEvent, useEffect, useState } from 'react'
 import {
   DeleteSubTaskButton,
   InputContainer,
@@ -22,14 +22,28 @@ export function NewTaskModal() {
     { id: Math.random(), description: '' },
   ])
 
-  function increaseSubtasks() {
+  function increaseSubtasks(event: MouseEvent<HTMLButtonElement>) {
     const newSubtask = { id: Math.random(), description: '' }
     setSubtasks((oldSubtasks) => [...oldSubtasks, newSubtask])
   }
 
   function HandleUpdateSubtask(e: FocusEvent<HTMLInputElement>) {
-    const subtaskUpdatedDescription = e.target.value
-    console.log(subtaskUpdatedDescription)
+    const subtaskField = e.target
+
+    if (subtaskField.dataset.id === undefined) {
+      return
+    }
+    const subtaskId = parseFloat(subtaskField.dataset.id)
+    const subtaskUpdatedDescription = subtaskField.value
+
+    const updatedSubtasks = subtasks.filter(
+      (subtask) => subtask.id !== subtaskId,
+    )
+
+    setSubtasks([
+      ...updatedSubtasks,
+      { id: subtaskId, description: subtaskUpdatedDescription },
+    ])
   }
 
   useEffect(() => {
@@ -66,10 +80,10 @@ export function NewTaskModal() {
             {subtasks.map((subtask) => (
               <div key={subtask.id}>
                 <input
-                  data-subtask-id={subtask.id}
                   type={'text'}
+                  data-id={subtask.id}
                   onBlur={HandleUpdateSubtask}
-                  value={subtask?.description}
+                  defaultValue={subtask?.description}
                 />
                 <DeleteSubTaskButton>
                   <X size={24} />

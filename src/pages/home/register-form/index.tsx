@@ -13,6 +13,11 @@ import {
   RegisterSubmitButton,
 } from './styles'
 import { api } from '@/lib/axios'
+import { AxiosError } from 'axios'
+
+interface BadRequestResponseData {
+  error: 'email already exists' | 'username already exists'
+}
 
 interface RegisterFormProps {
   openLoginForm: () => void
@@ -50,8 +55,18 @@ export function RegisterForm({ openLoginForm }: RegisterFormProps) {
     openLoginForm()
   }
 
-  function handleRegisterForm(userdata: RegisterFormType) {
-    api.post('/users/create-user', { userdata })
+  async function handleRegisterForm(userdata: RegisterFormType) {
+    try {
+      await api
+        .post('/users/create-user', { userdata })
+        .then((res) => console.log(res))
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 409) {
+          const typedError = error as AxiosError<BadRequestResponseData>
+        }
+      }
+    }
   }
 
   return (

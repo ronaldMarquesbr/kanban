@@ -29,6 +29,8 @@ export const FormContainer = styled('div', {
 
 export const FormInputContainer = styled('div', {
   position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
   margin: '2rem 0',
   boxShadow: '0 0 0 10px $gray800',
 
@@ -37,7 +39,7 @@ export const FormInputContainer = styled('div', {
   },
 
   '& ~ &': {
-    marginTop: '2rem',
+    marginTop: '2.5rem',
   },
 
   label: {
@@ -81,4 +83,12 @@ export const SeparatorLine = styled('div', {
     padding: '0 .25rem',
     backgroundColor: '$white',
   },
+})
+
+export const ErrorIndicator = styled('span', {
+  color: '$red500',
+  fontSize: '$xs',
+  height: '0rem',
+  display: 'inline-block',
+  marginTop: '.2rem',
 })

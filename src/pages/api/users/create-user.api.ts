@@ -2,6 +2,10 @@ import { prisma } from '@/lib/primas-client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { z } from 'zod'
 
+interface BadRequestResponseData {
+  error: 'email already exists' | 'username already exists'
+}
+
 const RegisterFormSchema = z.object({
   name: z
     .string()
@@ -51,26 +55,41 @@ export default async function handler(
   const parsedUserData = RegisterFormSchema.parse(userData)
   const { username, email, name, password } = parsedUserData
 
-  const usernameAlreadyExists = await prisma.user.findFirst({
+  // Verificar se username está em uso
+  const existingUsername = await prisma.user.findFirst({
     where: {
       username,
     },
   })
 
-  if (usernameAlreadyExists) {
-    return res.status(409).json({ error: 'username already exists' })
+  console.log(existingUsername)
+
+  if (existingUsername) {
+    const typedBadRequestResponse =
+      res as NextApiResponse<BadRequestResponseData>
+
+    return typedBadRequestResponse
+      .status(409)
+      .json({ error: 'username already exists' })
   }
 
-  const emailAlreadyExists = await prisma.user.findFirst({
+  // Verificar se email está em uso
+  const existingEmail = await prisma.user.findFirst({
     where: {
       email,
     },
   })
 
-  if (emailAlreadyExists) {
-    return res.status(409).json({ error: 'email already exists' })
+  if (existingEmail) {
+    const typedBadRequestResponse =
+      res as NextApiResponse<BadRequestResponseData>
+
+    return typedBadRequestResponse
+      .status(409)
+      .json({ error: 'email already exists' })
   }
 
+  // Criar usuario
   await prisma.user
     .create({
       data: {

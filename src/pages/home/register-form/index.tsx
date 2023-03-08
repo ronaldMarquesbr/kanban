@@ -1,4 +1,5 @@
 import {
+  ErrorIndicator,
   FormContainer,
   FormInputContainer,
 } from '@/components/entry-form/styles'
@@ -14,9 +15,16 @@ import {
 } from './styles'
 import { api } from '@/lib/axios'
 import { AxiosError } from 'axios'
+import { useState } from 'react'
+import { NoticeModal } from '../components/notice-modal'
 
 interface BadRequestResponseData {
   error: 'email already exists' | 'username already exists'
+}
+
+interface ExistingErrorsType {
+  email: boolean
+  username: boolean
 }
 
 interface RegisterFormProps {
@@ -48,63 +56,109 @@ const RegisterFormSchema = z.object({
 type RegisterFormType = z.infer<typeof RegisterFormSchema>
 
 export function RegisterForm({ openLoginForm }: RegisterFormProps) {
-  const { register, handleSubmit } = useForm<RegisterFormType>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormType>({
     resolver: zodResolver(RegisterFormSchema),
   })
+
+  const [existingErrors, setExistingErrors] = useState<ExistingErrorsType>({
+    email: false,
+    username: false,
+  })
+
+  const [openNoticeModal, setOpenNoticeModal] = useState(false)
+
   function handleClickOnButtonSubmit() {
     openLoginForm()
   }
 
-  async function handleRegisterForm(userdata: RegisterFormType) {
+  async function handleRegisterFormSubmit(userdata: RegisterFormType) {
     try {
       await api
         .post('/users/create-user', { userdata })
-        .then((res) => console.log(res))
+        .then(() => setOpenNoticeModal(true))
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 409) {
           const typedError = error as AxiosError<BadRequestResponseData>
+          const errorDescription = typedError?.response?.data.error
+
+          if (errorDescription === 'email already exists') {
+            setExistingErrors((oldAlreadyExistsErrors) => {
+              return { ...oldAlreadyExistsErrors, email: true }
+            })
+          } else if (errorDescription === 'username already exists') {
+            setExistingErrors((oldAlreadyExistsErrors) => {
+              return { email: false, username: true }
+            })
+          }
         }
       }
     }
   }
 
   return (
-    <FormContainer
-      css={{ animation: `${FadeInLeft} 1000ms cubic-bezier(0.16, 1, 0.3, 1)` }}
-    >
-      <strong>Cadastro</strong>
-      <form onSubmit={handleSubmit(handleRegisterForm)}>
-        <FormInputContainer>
-          <label>Nome completo</label>
-          <input {...register('name')} type="text" />
-        </FormInputContainer>
+    <>
+      <FormContainer
+        css={{
+          animation: `${FadeInLeft} 1000ms cubic-bezier(0.16, 1, 0.3, 1)`,
+        }}
+      >
+        <strong>Cadastro</strong>
+        <form onSubmit={handleSubmit(handleRegisterFormSubmit)}>
+          <FormInputContainer>
+            <label>Nome completo</label>
+            <input {...register('name')} type="text" />
+            <ErrorIndicator>
+              {errors.name ? errors.name.message : ''}
+            </ErrorIndicator>
+          </FormInputContainer>
 
-        <FormInputContainer>
-          <label>Username</label>
-          <input {...register('username')} type="text" />
-        </FormInputContainer>
+          <FormInputContainer>
+            <label>Username</label>
+            <input {...register('username')} type="text" />
+            <ErrorIndicator>
+              {errors.username ? errors.username.message : ''}
+              {existingErrors.username && !errors.username
+                ? 'Esse username já está sendo usado'
+                : ' '}
+            </ErrorIndicator>
+          </FormInputContainer>
 
-        <FormInputContainer>
-          <label>Email</label>
-          <input {...register('email')} type="email" />
-        </FormInputContainer>
+          <FormInputContainer>
+            <label>Email</label>
+            <input {...register('email')} type="email" />
+            <ErrorIndicator>
+              {errors.email ? errors.email.message : ''}
+              {existingErrors.email && !errors.email
+                ? 'Esse email já está sendo usado'
+                : ''}
+            </ErrorIndicator>
+          </FormInputContainer>
 
-        <FormInputContainer>
-          <label>Senha</label>
-          <input {...register('password')} type="password" />
-        </FormInputContainer>
+          <FormInputContainer>
+            <label>Senha</label>
+            <input {...register('password')} type="password" />
+            <ErrorIndicator>
+              {errors.password ? errors.password.message : ''}
+            </ErrorIndicator>
+          </FormInputContainer>
 
-        <ButtonGrid>
-          <RegisterSubmitButton type="submit">
-            Cadastrar-se
-          </RegisterSubmitButton>
-          <LoginFormRedirectButton onClick={handleClickOnButtonSubmit}>
-            <CaretCircleLeft size={21} />
-            Voltar para o login
-          </LoginFormRedirectButton>
-        </ButtonGrid>
-      </form>
-    </FormContainer>
+          <ButtonGrid>
+            <RegisterSubmitButton type="submit">
+              Cadastrar-se
+            </RegisterSubmitButton>
+            <LoginFormRedirectButton onClick={handleClickOnButtonSubmit}>
+              <CaretCircleLeft size={21} />
+              Voltar para o login
+            </LoginFormRedirectButton>
+          </ButtonGrid>
+        </form>
+      </FormContainer>
+      <NoticeModal isOpenModal={openNoticeModal} />
+    </>
   )
 }

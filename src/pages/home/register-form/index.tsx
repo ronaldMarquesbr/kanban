@@ -77,9 +77,13 @@ export function RegisterForm({ openLoginForm }: RegisterFormProps) {
 
   async function handleRegisterFormSubmit(userdata: RegisterFormType) {
     try {
-      await api
-        .post('/users/create-user', { userdata })
-        .then(() => setOpenNoticeModal(true))
+      await api.post('/users/create-user', { userdata }).then(() => {
+        setOpenNoticeModal(true)
+        setTimeout(() => {
+          setOpenNoticeModal(false)
+          openLoginForm()
+        }, 3000)
+      })
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 409) {

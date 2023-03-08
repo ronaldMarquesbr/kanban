@@ -39,7 +39,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method !== 'POST') {
-    return res.status(405)
+    return res.status(405).end()
   }
 
   const userData = req.body.userdata
@@ -61,8 +61,6 @@ export default async function handler(
       username,
     },
   })
-
-  console.log(existingUsername)
 
   if (existingUsername) {
     const typedBadRequestResponse =

@@ -39,7 +39,7 @@ export const FormInputContainer = styled('div', {
   },
 
   '& ~ &': {
-    marginTop: '2.5rem',
+    marginTop: '3rem',
   },
 
   label: {
@@ -87,8 +87,10 @@ export const SeparatorLine = styled('div', {
 
 export const ErrorIndicator = styled('span', {
   color: '$red500',
-  fontSize: '$xs',
+  fontSize: '$xxs',
+  fontWeight: 500,
   height: '0rem',
   display: 'inline-block',
   marginTop: '.2rem',
+  maxWidth: '19rem',
 })

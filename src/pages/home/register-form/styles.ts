@@ -1,4 +1,4 @@
-import { FormButton } from '@/components/entry-form/styles'
+import { FormButton } from '@/pages/home/components/entry-form/styles'
 import { keyframes, styled } from '@/styles'
 
 export const RegisterSubmitButton = styled(FormButton, {

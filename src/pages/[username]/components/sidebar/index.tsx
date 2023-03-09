@@ -1,4 +1,6 @@
+// import { UserDataContext } from '@/context/userContext'
 import { SquareHalf, SquaresFour } from 'phosphor-react'
+// import { useContext } from 'react'
 
 import {
   Menu,
@@ -9,6 +11,10 @@ import {
 } from './styles'
 
 export default function Sidebar() {
+  // const {
+  //   userData: { name },
+  // } = useContext(UserDataContext)
+
   return (
     <SidebarContainer>
       <SidebarContent>
@@ -23,7 +29,7 @@ export default function Sidebar() {
           />
           <div>
             <span>Desenvolvedor Frontend</span>
-            <span>Luciana Damasceno</span>
+            <span>teste</span>
           </div>
         </ProfileGrid>
         <Menu>

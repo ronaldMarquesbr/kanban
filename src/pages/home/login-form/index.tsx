@@ -3,7 +3,7 @@ import {
   FormContainer,
   FormInputContainer,
   SeparatorLine,
-} from '@/components/entry-form/styles'
+} from '@/pages/home/components/entry-form/styles'
 
 import { Envelope, GoogleLogo } from 'phosphor-react'
 

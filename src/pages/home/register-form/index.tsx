@@ -2,7 +2,7 @@ import {
   ErrorIndicator,
   FormContainer,
   FormInputContainer,
-} from '@/components/entry-form/styles'
+} from '@/pages/home/components/entry-form/styles'
 import { CaretCircleLeft } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

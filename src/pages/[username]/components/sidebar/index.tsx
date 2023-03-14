@@ -1,20 +1,20 @@
-// import { UserDataContext } from '@/context/userContext'
+import { UserDataContext } from '@/context/userContext'
 import { SquareHalf, SquaresFour } from 'phosphor-react'
-// import { useContext } from 'react'
+import { useContext } from 'react'
 
 import {
   Menu,
   ProfileGrid,
   ProfileImage,
+  ProjectList,
   SidebarContainer,
   SidebarContent,
 } from './styles'
 
 export default function Sidebar() {
-  // const {
-  //   userData: { name },
-  // } = useContext(UserDataContext)
-
+  const {
+    userData: { name, projects },
+  } = useContext(UserDataContext)
   return (
     <SidebarContainer>
       <SidebarContent>
@@ -29,7 +29,7 @@ export default function Sidebar() {
           />
           <div>
             <span>Desenvolvedor Frontend</span>
-            <span>teste</span>
+            <span>{name}</span>
           </div>
         </ProfileGrid>
         <Menu>
@@ -41,6 +41,15 @@ export default function Sidebar() {
           <li>
             <SquareHalf size={32} />
             Projetos
+            {projects.length > 0 ? (
+              <ProjectList>
+                {projects.map((project) => (
+                  <li key={project}>{project}</li>
+                ))}
+              </ProjectList>
+            ) : (
+              <></>
+            )}
           </li>
         </Menu>
       </SidebarContent>

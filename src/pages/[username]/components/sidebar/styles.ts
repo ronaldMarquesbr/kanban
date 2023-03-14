@@ -54,7 +54,7 @@ export const Menu = styled('ul', {
     margin: '3rem 0 3.5rem',
     fontSize: '$md',
   },
-  li: {
+  '& > li': {
     color: '$gray100',
     fontSize: '$s',
     display: 'flex',
@@ -63,6 +63,16 @@ export const Menu = styled('ul', {
 
     '& ~ &': {
       marginTop: '1.5rem',
+    },
+  },
+})
+
+export const ProjectList = styled('ul', {
+  li: {
+    fontSize: '$s',
+    color: '$gray400',
+    'li ~ li': {
+      marginTop: '.2rem',
     },
   },
 })

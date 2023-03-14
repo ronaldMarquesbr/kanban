@@ -11,10 +11,10 @@ interface EntryPageProps {
 }
 
 export default function Dashboard({ name, username }: EntryPageProps) {
-  const { userData, setUserData } = useContext(UserDataContext)
-  setUserData({ name, username, projects: [] })
+  const { setUserData } = useContext(UserDataContext)
+  setUserData({ name, username, projects: ['Nova task'] })
 
-  return <h1>{userData.username}</h1>
+  return <h1>{name}</h1>
 }
 
 export const getServerSideProps = withIronSessionSsr<EntryPageProps>(

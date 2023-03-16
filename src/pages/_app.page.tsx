@@ -1,9 +1,8 @@
 import { globalStyles } from '@/styles/global'
 import type { AppProps } from 'next/app'
-import Sidebar from './[username]/components/sidebar'
-import PageContainer from './[username]/components/page-container'
 import { useRouter } from 'next/router'
 import { UserContext } from '@/context/userContext'
+import { Layout } from './[username]/components/layout'
 
 globalStyles()
 
@@ -12,19 +11,16 @@ export default function App({ Component, pageProps }: AppProps) {
   const isInUserRouter = router.query.username
 
   return (
-    <>
+    <UserContext>
       {isInUserRouter ? (
         <>
-          <UserContext>
-            <PageContainer>
-              <Component {...pageProps} />
-            </PageContainer>
-            <Sidebar />
-          </UserContext>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </>
       ) : (
         <Component {...pageProps} />
       )}
-    </>
+    </UserContext>
   )
 }

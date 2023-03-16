@@ -1,16 +1,14 @@
+import {
+  ModalOverlay,
+  ModalCard,
+  ModalCardTitle,
+  InputContainer,
+  TextBoxContainer,
+} from '@/pages/[username]/components/NewItemModal/styles'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Plus, X } from 'phosphor-react'
 import React, { FocusEvent, MouseEvent, useState } from 'react'
-import {
-  DeleteSubTaskButton,
-  InputContainer,
-  ModalCard,
-  ModalCardTitle,
-  ModalOverlay,
-  NewTaskButton,
-  SubTaskContainer,
-  TextBoxContainer,
-} from './styles'
+import { DeleteSubTaskButton, NewTaskButton, SubTaskContainer } from './styles'
 
 interface SubtaskType {
   id: number

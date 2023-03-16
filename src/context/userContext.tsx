@@ -1,32 +1,40 @@
 import React, { createContext, ReactNode, useState } from 'react'
 
 interface UserDataType {
-  username: string
-  name: string
+  username: string | undefined
+  name: string | undefined
   projects: string[] | []
 }
 
 interface UserDataContextType {
   userData: UserDataType
-  setUserData: React.Dispatch<React.SetStateAction<UserDataType>>
+  updateUserData: (newUserData: UserDataType) => void
 }
 
 interface UserContextProps {
   children: ReactNode
 }
 
-const defaultUserDataValues = { name: '', username: '', projects: [] }
+const defaultUserDataValues = {
+  name: undefined,
+  username: undefined,
+  projects: [],
+}
 
 export const UserDataContext = createContext<UserDataContextType>({
   userData: defaultUserDataValues,
-  setUserData: () => {},
+  updateUserData: () => {},
 })
 
 export function UserContext({ children }: UserContextProps) {
   const [userData, setUserData] = useState<UserDataType>(defaultUserDataValues)
 
+  function updateUserData(newUserData: UserDataType) {
+    setUserData(newUserData)
+  }
+
   return (
-    <UserDataContext.Provider value={{ userData, setUserData }}>
+    <UserDataContext.Provider value={{ userData, updateUserData }}>
       {children}
     </UserDataContext.Provider>
   )

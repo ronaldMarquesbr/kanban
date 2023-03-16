@@ -1,8 +1,7 @@
 import { withIronSessionSsr } from 'iron-session/next'
 import { sessionOptions } from '@/lib/session'
 import { prisma } from '@/lib/primas-client'
-import { useContext } from 'react'
-import { UserDataContext } from '@/context/userContext'
+import { Header } from './components/Header'
 
 interface EntryPageProps {
   [key: string]: unknown
@@ -11,10 +10,11 @@ interface EntryPageProps {
 }
 
 export default function Dashboard({ name, username }: EntryPageProps) {
-  const { setUserData } = useContext(UserDataContext)
-  setUserData({ name, username, projects: ['Nova task'] })
-
-  return <h1>{name}</h1>
+  return (
+    <>
+      <Header profileName={name} />
+    </>
+  )
 }
 
 export const getServerSideProps = withIronSessionSsr<EntryPageProps>(
